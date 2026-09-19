@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 
-export default ({ aoCriarEvento, tipoUsuario }) => {
+export default ({ tipoUsuario }) => {
   const navigate = useNavigate();
   const [titulo, setTitulo] = useState('');
   const [local, setLocal] = useState('');
   const [dia, setDia] = useState('');
   const [desc, setDesc] = useState('');
 
-  // Proteção de rota: se for voluntário, bloqueia o acesso
+  // Proteção de rota: apenas ONG pode cadastrar
   if (tipoUsuario !== 'ong') {
     alert('Apenas contas de ONG podem cadastrar novos eventos.');
     return <Navigate to="/" replace />;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!dia || dia < 1 || dia > 31) {
       alert('Por favor, informe um dia válido do mês (1 a 31).');
@@ -22,19 +22,31 @@ export default ({ aoCriarEvento, tipoUsuario }) => {
     }
 
     const novoEvento = {
-      id: Date.now(),
-      dia: Number(dia),
       titulo,
       local,
+      dia: Number(dia),
       desc
     };
 
-    if (aoCriarEvento) {
-      aoCriarEvento(novoEvento);
-    }
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/events`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(novoEvento)
+      });
 
-    alert('Evento cadastrado com sucesso!');
-    navigate('/');
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Evento cadastrado com sucesso!");
+        navigate('/');
+      } else {
+        alert(data.message || "Erro ao cadastrar evento");
+      }
+    } catch (error) {
+      console.error("Erro de conexão:", error);
+      alert("Erro de conexão com o servidor");
+    }
   };
 
   return (
