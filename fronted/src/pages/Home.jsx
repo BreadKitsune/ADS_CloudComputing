@@ -1,8 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ eventos, aoInscrever, tipoUsuario }) => {
+export default ({ tipoUsuario }) => {
+  const [eventos, setEventos] = useState([]);
   const [diaSelecionado, setDiaSelecionado] = useState(null);
+
+  // Buscar eventos do backend ao montar o componente
+  useEffect(() => {
+    async function fetchEventos() {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/events`);
+        const data = await response.json();
+        setEventos(data);
+      } catch (error) {
+        console.error("Erro ao carregar eventos:", error);
+      }
+    }
+    fetchEventos();
+  }, []);
+
+  // Função para inscrever usuário em um evento
+  async function inscreverUsuario(evento) {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/attendance`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId: evento.id, userId: 123 }) // ajuste conforme seu backend
+      });
+      const data = await response.json();
+      console.log("Inscrição realizada:", data);
+    } catch (error) {
+      console.error("Erro ao inscrever:", error);
+    }
+  }
 
   const diasComEvento = eventos.map(ev => ev.dia);
   const diasMes = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -75,7 +105,7 @@ export default ({ eventos, aoInscrever, tipoUsuario }) => {
                 {/* Ambos podem se inscrever */}
                 <button 
                   className="btn-card-inscrever"
-                  onClick={() => aoInscrever(ev)}
+                  onClick={() => inscreverUsuario(ev)}
                 >
                   Inscrever-se
                 </button>
