@@ -1,9 +1,18 @@
 import express from "express";
-import authRoutes from "./routes/auth.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-app.use("/auth", authRoutes);
+// Rota de teste
+app.get("/", (req, res) => {
+  res.send("Backend funcionando!");
+});
 
-app.listen(5000, () => console.log("Backend rodando na porta 5000"));
+// Aqui você coloca o PORT
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
