@@ -1,12 +1,18 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
-export default ({ aoCriarEvento }) => {
+export default ({ aoCriarEvento, tipoUsuario }) => {
+  const navigate = useNavigate();
   const [titulo, setTitulo] = useState('');
   const [local, setLocal] = useState('');
   const [dia, setDia] = useState('');
   const [desc, setDesc] = useState('');
-  const navigate = useNavigate();
+
+  // Proteção de rota: se for voluntário, bloqueia o acesso
+  if (tipoUsuario !== 'ong') {
+    alert('Apenas contas de ONG podem cadastrar novos eventos.');
+    return <Navigate to="/" replace />;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,13 +34,13 @@ export default ({ aoCriarEvento }) => {
     }
 
     alert('Evento cadastrado com sucesso!');
-    navigate('/'); // Voltar para a Home para ver o evento criado
+    navigate('/');
   };
 
   return (
     <div className="auth-container">
       <form className="auth-card" onSubmit={handleSubmit} style={{ maxWidth: '560px' }}>
-        <h2>Cadastrar Novo Evento</h2>
+        <h2>Cadastrar Novo Evento (Área da ONG)</h2>
         <p className="auth-subtitle">Preencha os detalhes da sua ação social</p>
 
         <div className="input-group">

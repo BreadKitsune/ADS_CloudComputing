@@ -8,6 +8,8 @@ import CriarEvento from './pages/CriarEvento';
 import './styles.css';
 
 export default () => {
+  const [tipoUsuario, setTipoUsuario] = useState('voluntario'); // 'voluntario' ou 'ong'
+
   const [eventos, setEventos] = useState([
     { id: 1, dia: 2, titulo: 'Mutirão Solidário', local: 'Zona Sul', desc: 'Ação de apoio à comunidade local.' },
     { id: 2, dia: 10, titulo: 'Doação de Sangue', local: 'Hospital Central', desc: 'Campanha de coleta de sangue.' },
@@ -24,17 +26,28 @@ export default () => {
 
   return (
     <div className="app-container">
-      <Navbar />
+      <Navbar tipoUsuario={tipoUsuario} setTipoUsuario={setTipoUsuario} />
       <Routes>
         <Route 
           path="/" 
-          element={<Home eventos={eventos} aoInscrever={realizarInscricao} />} 
+          element={
+            <Home 
+              eventos={eventos} 
+              aoInscrever={realizarInscricao} 
+              tipoUsuario={tipoUsuario} 
+            />
+          } 
         />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route 
           path="/criar-evento" 
-          element={<CriarEvento aoCriarEvento={adicionarEvento} />} 
+          element={
+            <CriarEvento 
+              aoCriarEvento={adicionarEvento} 
+              tipoUsuario={tipoUsuario} 
+            />
+          } 
         />
       </Routes>
     </div>

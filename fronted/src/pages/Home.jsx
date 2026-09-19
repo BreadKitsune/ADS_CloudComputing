@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ eventos, aoInscrever }) => {
+export default ({ eventos, aoInscrever, tipoUsuario }) => {
   const [diaSelecionado, setDiaSelecionado] = useState(null);
 
-  // Pega os dias do mês que possuem ao menos 1 evento
   const diasComEvento = eventos.map(ev => ev.dia);
   const diasMes = Array.from({ length: 31 }, (_, i) => i + 1);
   const diasSemana = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
 
-  // Eventos filtrados pelo dia clicado no calendário (ou exibe todos se nenhum estiver selecionado)
   const eventosExibidos = diaSelecionado 
     ? eventos.filter(ev => ev.dia === diaSelecionado)
     : eventos;
 
   return (
     <div className="home-container">
-      {/* Lado Esquerdo: Calendário Clicável */}
+      {/* Calendário */}
       <div className="calendar-section">
         <div className="calendar-header-info">
           <h3>Calendário de Ações</h3>
@@ -42,7 +40,6 @@ export default ({ eventos, aoInscrever }) => {
                 className={`calendar-day ${temEvento ? 'has-event' : ''} ${isSelected ? 'selected-day' : ''}`}
                 onClick={() => temEvento && setDiaSelecionado(dia === diaSelecionado ? null : dia)}
                 style={{ cursor: temEvento ? 'pointer' : 'default' }}
-                title={temEvento ? `Clique para ver eventos do dia ${dia}` : ''}
               >
                 <span>{dia}</span>
                 {temEvento && <div className="event-dot"></div>}
@@ -52,13 +49,16 @@ export default ({ eventos, aoInscrever }) => {
         </div>
       </div>
 
-      {/* Lado Direito: Ações e Lista de Eventos */}
+      {/* Lista de Eventos */}
       <div className="events-section">
-        <div className="events-header-actions">
-          <Link to="/criar-evento" className="btn-criar-evento">
-            + Cadastrar Evento (ONG)
-          </Link>
-        </div>
+        {/* Apenas ONG visualiza o botão de criar evento */}
+        {tipoUsuario === 'ong' && (
+          <div className="events-header-actions">
+            <Link to="/criar-evento" className="btn-criar-evento">
+              + Cadastrar Evento (ONG)
+            </Link>
+          </div>
+        )}
 
         <div className="events-scroll-list">
           {eventosExibidos.length === 0 ? (
@@ -72,6 +72,7 @@ export default ({ eventos, aoInscrever }) => {
                   <p className="event-location">📍 {ev.local}</p>
                   <p className="event-desc">{ev.desc}</p>
                 </div>
+                {/* Ambos podem se inscrever */}
                 <button 
                   className="btn-card-inscrever"
                   onClick={() => aoInscrever(ev)}
