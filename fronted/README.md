@@ -1,0 +1,1 @@
+# ConectaONG Frontend\nEstrutura inicial React + Vite.

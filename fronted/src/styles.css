@@ -1,0 +1,553 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f7fb;
+  color: #333;
+}
+
+/* ==========================================
+   NAVBAR
+   ========================================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 48px;
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.brand-logo {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.brand-logo h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.tagline {
+  font-size: 1.05rem;
+  opacity: 0.9;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-cadastro,
+.btn-login {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.btn-login {
+  border: 2px solid #ffffff;
+}
+
+.icon-profile {
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+
+/* ==========================================
+   HOME PAGE (AMPLIADA PARA PREENCHER O ECRÃ)
+   ========================================== */
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 48px;
+  max-width: 1500px; /* Aumentado de 1100px para ocupar a tela */
+  margin: 0 auto;
+}
+
+.calendar-section {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  text-align: center;
+}
+
+.calendar-header-day {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #dc2626;
+  padding-bottom: 12px;
+}
+
+.calendar-day {
+  height: 68px; /* Aumentado de 48px para células maiores */
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.event-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.events-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.btn-inscrever {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  font-weight: bold;
+  font-size: 1.15rem;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.events-scroll-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 520px; /* Aumentado para acomodar os cards maiores */
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.event-list-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #2563eb;
+  border-radius: 12px;
+  padding: 20px;
+  gap: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.event-day-badge {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #22c55e;
+  border: 2px solid #22c55e;
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+
+.event-info h4 {
+  color: #1e3a8a;
+  margin-bottom: 6px;
+  font-size: 1.25rem;
+}
+
+.event-info p {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* ==========================================
+   AUTENTICAÇÃO (LOGIN E CADASTRO)
+   ========================================== */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  padding: 24px;
+}
+
+.auth-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 480px;
+}
+
+.auth-card h2 {
+  color: #1e3a8a;
+  margin-bottom: 6px;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 24px;
+}
+
+.type-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.type-selector button {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #374151;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.type-selector button.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.toggle-password:hover {
+  color: #2563eb;
+}
+
+.btn-submit {
+  width: 100%;
+  background: #16a34a;
+  color: #ffffff;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.btn-submit:hover {
+  background: #15803d;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.auth-footer a {
+  color: #2563eb;
+  font-weight: bold;
+  text-decoration: none;
+}/* ==========================================
+   PERFIL DE USUÁRIO
+   ========================================== */
+.profile-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profile-header-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.profile-details h2 {
+  color: #1e3a8a;
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.profile-badge {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #1d4ed8;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.profile-email,
+.profile-location {
+  color: #4b5563;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.btn-edit-profile {
+  margin-left: auto;
+  background: transparent;
+  border: 2px solid #2563eb;
+  color: #2563eb;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-edit-profile:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.profile-content h3 {
+  color: #1e3a8a;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+
+.subscriptions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.subscription-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.subscription-date {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #22c55e;
+  border: 2px solid #22c55e;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+.subscription-info {
+  flex: 1;
+}
+
+.subscription-info h4 {
+  color: #111827;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.subscription-info p {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.status-badge {
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.btn-cancel {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-cancel:hover {
+  text-decoration: underline;
+}
+/* ==========================================
+   NOVOS ESTILOS DE INTERAÇÃO (HOME & CRIAR EVENTO)
+   ========================================== */
+.calendar-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-header-info h3 {
+  color: #1e3a8a;
+  font-size: 1.3rem;
+}
+
+.btn-limpar-filtro {
+  background: #e0e7ff;
+  color: #2563eb;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calendar-day.has-event {
+  background-color: #f0fdf4;
+  border-color: #86efac;
+  transition: all 0.2s ease;
+}
+
+.calendar-day.has-event:hover {
+  background-color: #dcfce7;
+  transform: translateY(-2px);
+}
+
+.calendar-day.selected-day {
+  border: 2px solid #16a34a !important;
+  background-color: #bbf7d0 !important;
+}
+
+.events-header-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-criar-evento {
+  background-color: #16a34a;
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+  transition: background 0.2s;
+}
+
+.btn-criar-evento:hover {
+  background-color: #15803d;
+}
+
+.btn-card-inscrever {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-card-inscrever:hover {
+  background-color: #1d4ed8;
+}
+
+.input-textarea {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.no-events-msg {
+  color: #6b7280;
+  text-align: center;
+  padding: 32px;
+  font-style: italic;
+}
