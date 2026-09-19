@@ -4,10 +4,43 @@ import { Link } from 'react-router-dom';
 export default () => {
   const [tipoConta, setTipoConta] = useState('voluntario');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mensagem, setMensagem] = useState("");
+
+  async function handleCadastro(e) {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tipo: tipoConta,
+          nome,
+          email,
+          password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMensagem("Cadastro realizado com sucesso!");
+        // Aqui você pode redirecionar para login
+        // window.location.href = "/login";
+      } else {
+        setMensagem(data.message || "Erro ao cadastrar");
+      }
+    } catch (error) {
+      console.error("Erro de conexão:", error);
+      setMensagem("Erro de conexão com o servidor");
+    }
+  }
 
   return (
     <div className="auth-container">
-      <form className="auth-card">
+      <form className="auth-card" onSubmit={handleCadastro}>
         <h2>Criar Conta</h2>
         <p className="auth-subtitle">Junte-se à nossa rede de apoio social</p>
 
@@ -30,12 +63,24 @@ export default () => {
 
         <div className="input-group">
           <label>{tipoConta === 'ong' ? 'Nome da ONG' : 'Nome Completo'}</label>
-          <input type="text" placeholder="Digite o seu nome" required />
+          <input 
+            type="text" 
+            placeholder="Digite o seu nome" 
+            required 
+            value={nome}
+            onChange={e => setNome(e.target.value)}
+          />
         </div>
 
         <div className="input-group">
           <label>E-mail</label>
-          <input type="email" placeholder="seuemail@exemplo.com" required />
+          <input 
+            type="email" 
+            placeholder="seuemail@exemplo.com" 
+            required 
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
         </div>
 
         <div className="input-group">
@@ -45,6 +90,8 @@ export default () => {
               type={mostrarSenha ? "text" : "password"} 
               placeholder="Crie uma palavra-passe forte" 
               required 
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <button 
               type="button" 
@@ -68,6 +115,8 @@ export default () => {
         </div>
 
         <button type="submit" className="btn-submit">Cadastrar</button>
+
+        {mensagem && <p className="auth-message">{mensagem}</p>}
 
         <p className="auth-footer">
           Já possui uma conta? <Link to="/login">Faça Login</Link>
